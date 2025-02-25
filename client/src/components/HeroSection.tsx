@@ -13,13 +13,34 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <motion.h1 
+            className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient"
+            initial={{ backgroundPosition: "0% center" }}
+            animate={{ 
+              backgroundPosition: ["0% center", "200% center"],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
             Full Stack Developer
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-muted-foreground mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             Passionate about building scalable applications and cloud infrastructure
-          </p>
-          <div className="flex gap-4 justify-center">
+          </motion.p>
+          <motion.div 
+            className="flex gap-4 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
             <Button size="lg">
               Contact Me
             </Button>
@@ -27,7 +48,7 @@ export default function HeroSection() {
               <Download className="mr-2 h-4 w-4" />
               Download Resume
             </Button>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </SectionWrapper>

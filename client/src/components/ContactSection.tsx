@@ -29,14 +29,14 @@ export default function ContactSection() {
     setIsSubmitting(true);
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           from_name: data.name,
           from_email: data.email,
           message: data.message,
         },
-        'YOUR_PUBLIC_KEY'
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
       toast({
@@ -45,9 +45,10 @@ export default function ContactSection() {
       });
       form.reset();
     } catch (error) {
+      console.error('EmailJS error:', error);
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: "Failed to send message. Please try again later.",
         variant: "destructive",
       });
     } finally {
