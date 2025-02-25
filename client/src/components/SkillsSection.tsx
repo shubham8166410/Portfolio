@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "./SectionWrapper";
 import { 
-  SiJava, 
+  SiJavascript, 
   SiKotlin, 
   SiNodedotjs, 
   SiPython, 
@@ -14,7 +14,7 @@ import {
   SiMongodb, 
   SiJenkins, 
   SiGithubactions, 
-  SiAws, 
+  SiAmazon, 
   SiDocker, 
   SiKubernetes, 
   SiTerraform, 
@@ -26,7 +26,7 @@ const skills = [
   {
     category: "Backend",
     items: [
-      { name: "Java", icon: SiJava },
+      { name: "JavaScript", icon: SiJavascript },
       { name: "Kotlin", icon: SiKotlin },
       { name: "Node.js", icon: SiNodedotjs },
       { name: "Python", icon: SiPython },
@@ -53,7 +53,7 @@ const skills = [
     items: [
       { name: "Jenkins", icon: SiJenkins },
       { name: "GitHub Actions", icon: SiGithubactions },
-      { name: "AWS", icon: SiAws },
+      { name: "AWS", icon: SiAmazon },
       { name: "Docker", icon: SiDocker },
       { name: "Kubernetes", icon: SiKubernetes },
       { name: "Terraform", icon: SiTerraform },
