@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import SectionWrapper from "./SectionWrapper";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
+import { SiReact, SiAmazon, SiSiemens, SiInfosys } from "react-icons/si";
 
 const experiences = [
   {
@@ -14,7 +15,8 @@ const experiences = [
       "Implemented secure payment processing features",
       "Optimized database queries improving response time by 40%",
       "Led team of 5 developers for major platform upgrade"
-    ]
+    ],
+    icon: SiReact // Using React icon as a placeholder for Tyro
   },
   {
     company: "Rackspace Technology",
@@ -25,7 +27,8 @@ const experiences = [
       "Designed and implemented CI/CD pipelines",
       "Reduced deployment time by 60% through automation",
       "Managed multi-cloud environments for 20+ clients"
-    ]
+    ],
+    icon: SiAmazon // Using Amazon icon since Rackspace is a cloud provider
   },
   {
     company: "Siemens",
@@ -36,8 +39,21 @@ const experiences = [
       "Developed real-time monitoring systems",
       "Implemented IoT sensors data processing",
       "Improved system reliability by 35%"
-    ]
+    ],
+    icon: SiSiemens
   },
+  {
+    company: "Infosys",
+    period: "Aug 2017 - Feb 2019",
+    role: "Software Developer",
+    description: "Worked on enterprise-level applications and digital transformation projects for global clients.",
+    highlights: [
+      "Developed microservices architecture",
+      "Implemented RESTful APIs for client applications",
+      "Reduced system downtime by 25% through monitoring improvements"
+    ],
+    icon: SiInfosys
+  }
 ];
 
 interface Experience {
@@ -46,6 +62,7 @@ interface Experience {
   role: string;
   description: string;
   highlights: string[];
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 export default function ExperienceTimeline() {
@@ -60,52 +77,57 @@ export default function ExperienceTimeline() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        Experience
+        Professional Journey
       </motion.h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {experiences.map((exp, index) => (
-          <motion.div
-            key={exp.company}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-          >
+      <div className="max-w-4xl mx-auto relative">
+        {/* Vertical Timeline Line */}
+        <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-primary/20"></div>
+
+        {experiences.map((exp, index) => {
+          const Icon = exp.icon;
+          return (
             <motion.div
-              whileHover={{ 
-                scale: 1.05,
-                rotateY: 5,
-                rotateX: 5,
-                transition: { duration: 0.2 }
-              }}
-              style={{ perspective: "1000px" }}
+              key={exp.company}
+              className={`flex mb-8 items-center ${
+                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+              }`}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <Card 
-                className="cursor-pointer transform-gpu transition-all duration-300 hover:shadow-xl"
+              {/* Timeline Node */}
+              <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                <Icon className="w-4 h-4 text-white" />
+              </div>
+
+              {/* Content Card */}
+              <motion.div 
+                className={`flex-1 ${index % 2 === 0 ? 'md:mr-12' : 'md:ml-12'}`}
+                whileHover={{ scale: 1.02 }}
                 onClick={() => setSelectedExp(exp)}
               >
-                <CardContent className="p-6">
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                  >
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
                     <h3 className="text-xl font-semibold mb-2">{exp.company}</h3>
-                    <p className="text-muted-foreground font-medium">{exp.role}</p>
-                    <p className="text-sm text-muted-foreground mt-2">{exp.period}</p>
-                    <p className="mt-4 text-sm line-clamp-3">{exp.description}</p>
-                  </motion.div>
-                </CardContent>
-              </Card>
+                    <p className="text-primary font-medium">{exp.role}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{exp.period}</p>
+                    <p className="mt-4 text-sm line-clamp-2">{exp.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
+          );
+        })}
       </div>
 
       <Dialog open={!!selectedExp} onOpenChange={() => setSelectedExp(null)}>
         <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">{selectedExp?.company}</DialogTitle>
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+              {selectedExp?.icon && <selectedExp.icon className="w-6 h-6" />}
+              {selectedExp?.company}
+            </DialogTitle>
           </DialogHeader>
           <div className="mt-4">
             <p className="text-lg font-semibold text-primary">{selectedExp?.role}</p>
