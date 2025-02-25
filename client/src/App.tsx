@@ -4,6 +4,9 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import LoadingScreen from "@/components/LoadingScreen";
+import { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 
 function Router() {
   return (
@@ -15,9 +18,26 @@ function Router() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate content loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <LoadingScreen key="loading" />
+        ) : (
+          <Router key="content" />
+        )}
+      </AnimatePresence>
       <Toaster />
     </QueryClientProvider>
   );
