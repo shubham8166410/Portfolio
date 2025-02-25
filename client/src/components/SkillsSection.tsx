@@ -81,59 +81,59 @@ const item = {
 export default function SkillsSection() {
   return (
     <SectionWrapper>
-      <motion.h2 
-        className="text-3xl font-bold mb-8 text-center"
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        Skills
-      </motion.h2>
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-      >
-        {skills.map((category, index) => (
-          <motion.div
-            key={category.category}
-            variants={item}
-            whileHover={{ 
-              scale: 1.02,
-              rotateX: 5,
-              rotateY: 5,
-              transition: { duration: 0.2 }
-            }}
-            style={{ perspective: "1000px" }}
-          >
-            <Card className="transform-gpu transition-transform duration-300 hover:shadow-xl">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-4">{category.category}</h3>
-                <motion.div 
-                  className="grid grid-cols-2 sm:grid-cols-3 gap-4"
-                  variants={container}
-                  initial="hidden"
-                  animate="show"
-                >
-                  {category.items.map((skill) => (
-                    <motion.div
-                      key={skill.name}
-                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <skill.icon className="h-5 w-5" />
-                      <span>{skill.name}</span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+      <motion.div layout>
+        <motion.h2 
+          className="text-3xl font-bold mb-8 text-center"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          Skills
+        </motion.h2>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={container}
+        >
+          {skills.map((category) => (
+            <motion.div
+              key={category.category}
+              variants={item}
+              className="perspective-1000"
+            >
+              <motion.div
+                whileHover={{ 
+                  scale: 1.02,
+                  rotateX: 5,
+                  rotateY: 5,
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                <Card className="transform-gpu transition-transform duration-300 hover:shadow-xl">
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold mb-4">{category.category}</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                      {category.items.map((skill) => (
+                        <motion.div
+                          key={skill.name}
+                          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <skill.icon className="h-5 w-5" />
+                          <span>{skill.name}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </SectionWrapper>
   );
