@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SkillsSection from "@/components/SkillsSection";
+import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <HeroSection />
       <SkillsSection />
       <ExperienceTimeline />
+      <ProjectsSection />
       <ContactSection />
     </motion.div>
   );
