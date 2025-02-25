@@ -5,15 +5,21 @@ import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import LoadingScreen from "@/components/LoadingScreen";
+import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow">
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+      <Footer />
+    </div>
   );
 }
 
