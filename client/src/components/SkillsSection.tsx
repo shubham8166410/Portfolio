@@ -63,38 +63,78 @@ const skills = [
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
+
 export default function SkillsSection() {
   return (
     <SectionWrapper>
-      <h2 className="text-3xl font-bold mb-8 text-center">Skills</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <motion.h2 
+        className="text-3xl font-bold mb-8 text-center"
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        Skills
+      </motion.h2>
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+      >
         {skills.map((category, index) => (
           <motion.div
             key={category.category}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            variants={item}
+            whileHover={{ 
+              scale: 1.02,
+              rotateX: 5,
+              rotateY: 5,
+              transition: { duration: 0.2 }
+            }}
+            style={{ perspective: "1000px" }}
           >
-            <Card>
+            <Card className="transform-gpu transition-transform duration-300 hover:shadow-xl">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4">{category.category}</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <motion.div 
+                  className="grid grid-cols-2 sm:grid-cols-3 gap-4"
+                  variants={container}
+                  initial="hidden"
+                  animate="show"
+                >
                   {category.items.map((skill) => (
-                    <div
+                    <motion.div
                       key={skill.name}
                       className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <skill.icon className="h-5 w-5" />
                       <span>{skill.name}</span>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </CardContent>
             </Card>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </SectionWrapper>
   );
 }
